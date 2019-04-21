@@ -1,25 +1,65 @@
 package GameOfCubes;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import static GameOfCubes.Main.numberChosenByUser;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Γρηγόρης
  */
-public class GameOfCubes {
-    private static List<Integer> possibleStatesList = new ArrayList<>(); 
+
+public class Node {
     
-    //Creates list of integers, which are possible states according to the input state (node)
-    //and values 1,2 and user defined value
-    static List<Integer> getPossibleStates(int noOfStonesInHeap) {
-        possibleStatesList =  IntStream.of(1, 2, numberChosenByUser).boxed()
-          .map(i -> noOfStonesInHeap - i)
-          .filter(newHeapCount -> newHeapCount >= 0)
-          .collect(Collectors.toList());
-        return possibleStatesList;
-    }    
+    private int noOfStones;
+    private boolean isMaxPlayer;
+    private int score;
+    List<Node> children;
+
+    
+    Node(int noOfStones, boolean b) {
+        this.noOfStones = noOfStones;
+        this.isMaxPlayer = b;
+        children = new ArrayList<>();
+    }
+    
+    public int getNoOfStones() {
+        return noOfStones;
+    }
+
+    public boolean isIsMaxPlayer() {
+        return isMaxPlayer;
+    }
+
+    public int getScore() {
+        return score;
+    }
+    
+    public void setNoOfStones(int noOfStones) {
+        this.noOfStones = noOfStones;
+    }
+
+    public void setIsMaxPlayer(boolean isMaxPlayer) {
+        this.isMaxPlayer = isMaxPlayer;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setChildren(List<Node> children) {
+        this.children = children;
+    }
+    
+    public void addChildren(Node n){
+        children.add(n);
+    }
+    
+    public List<Node> getChildrens() {
+        return children;
+    }
+    
+    public void removeChildren(Node n){
+        children.remove(n);
+    }
 }
+
